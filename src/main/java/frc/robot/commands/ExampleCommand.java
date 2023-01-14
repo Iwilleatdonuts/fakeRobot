@@ -5,23 +5,24 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /** An example command that uses an example subsystem. */
 public class ExampleCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ExampleSubsystem m_subsystem;
-  private final Joystick m_joystick;
+  private final CommandXboxController m_CommandXboxController;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(ExampleSubsystem subsystem, Joystick joystick) {
+  public ExampleCommand(ExampleSubsystem subsystem, CommandXboxController commandXboxController) {
     m_subsystem = subsystem;
-    m_joystick = joystick;
+    m_CommandXboxController = commandXboxController;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -34,11 +35,11 @@ public class ExampleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double move = m_joystick.getRawAxis(XboxController.Axis.kLeftY.value);
-    double turn = m_joystick.getRawAxis(XboxController.Axis.kLeftX.value);
+    double move = m_CommandXboxController.getRawAxis(XboxController.Axis.kLeftY.value);
+    double turn = m_CommandXboxController.getRawAxis(XboxController.Axis.kLeftX.value);
     m_subsystem.setEMotorSpeed(move+ turn);
     m_subsystem.setWMotorSpeed(move- turn);
-    boolean mode = m_joystick.getRawButton(XboxController.Button.kX.value);
+    Trigger mode = m_CommandXboxController.x();
     m_subsystem.setBrakeMode(mode);
   }
 

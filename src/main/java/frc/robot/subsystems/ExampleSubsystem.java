@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -42,8 +43,8 @@ private final TalonFX m_sEMoveMotor;
       m_nEMoveMotor.set(ControlMode.PercentOutput, eMotorSpeed);
       m_sEMoveMotor.set(ControlMode.PercentOutput, eMotorSpeed);
   }
-  public void setBrakeMode(boolean mode){
-    if(mode){
+  public void setBrakeMode(Trigger mode){
+    if(mode.getAsBoolean()){
       m_nWTurnMotor.setNeutralMode(NeutralMode.Brake);
       m_nETurnMotor.setNeutralMode(NeutralMode.Brake);
       m_sWTurnMotor.setNeutralMode(NeutralMode.Brake);
