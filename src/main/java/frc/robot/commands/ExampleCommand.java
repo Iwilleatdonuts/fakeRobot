@@ -34,11 +34,12 @@ public class ExampleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double move = m_joystick.getRawAxis(1);
-    double turn = m_joystick.getRawAxis(2);
+    double move = m_joystick.getRawAxis(XboxController.Axis.kLeftY.value);
+    double turn = m_joystick.getRawAxis(XboxController.Axis.kLeftX.value);
     m_subsystem.setEMotorSpeed(move+ turn);
     m_subsystem.setWMotorSpeed(move- turn);
-    boolean mode = m_joystick.getRawButton(0);
+    boolean mode = m_joystick.getRawButton(XboxController.Button.kX.value);
+    m_subsystem.setBrakeMode(mode);
   }
 
   // Called once the command ends or is interrupted.
