@@ -25,7 +25,6 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final Joystick m_driverController = new Joystick(OperatorConstants.kDriverControllerPort);
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -43,6 +42,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     m_exampleSubsystem.setDefaultCommand(new ExampleCommand(m_exampleSubsystem, m_driverController));
+
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());

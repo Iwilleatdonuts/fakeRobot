@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -23,14 +24,14 @@ private final TalonFX m_sWMoveMotor;
 private final TalonFX m_sEMoveMotor;
 
   public ExampleSubsystem() {
-    m_nWTurnMotor = new TalonFX(0);
-    m_nETurnMotor = new TalonFX(0);
-    m_sWTurnMotor = new TalonFX(0);
-    m_sETurnMotor = new TalonFX(0);
-    m_nWMoveMotor = new TalonFX(0);
-    m_nEMoveMotor = new TalonFX(0);
-    m_sWMoveMotor = new TalonFX(0);
-    m_sEMoveMotor = new TalonFX(0);
+    m_nWTurnMotor = new TalonFX(Constants.nWTurnMotorID);
+    m_nETurnMotor = new TalonFX(Constants.nETurnMotorID);
+    m_sWTurnMotor = new TalonFX(Constants.sWTurnMotorID);
+    m_sETurnMotor = new TalonFX(Constants.sETurnMotorID);
+    m_nWMoveMotor = new TalonFX(Constants.nWMoveMotorID);
+    m_nEMoveMotor = new TalonFX(Constants.nEMoveMotorID);
+    m_sWMoveMotor = new TalonFX(Constants.sWMoveMotorID);
+    m_sEMoveMotor = new TalonFX(Constants.sEMoveMotorID);
   }
 
   public void setWMotorSpeed(double wMotorSpeed){
@@ -44,6 +45,14 @@ private final TalonFX m_sEMoveMotor;
   public void setBrakeMode(boolean mode){
     if(mode){
       m_nWTurnMotor.setNeutralMode(NeutralMode.Brake);
+      m_nETurnMotor.setNeutralMode(NeutralMode.Brake);
+      m_sWTurnMotor.setNeutralMode(NeutralMode.Brake);
+      m_sETurnMotor.setNeutralMode(NeutralMode.Brake);
+    } else {
+      m_nWTurnMotor.setNeutralMode(NeutralMode.Coast);
+      m_nETurnMotor.setNeutralMode(NeutralMode.Coast);
+      m_sWTurnMotor.setNeutralMode(NeutralMode.Coast);
+      m_sETurnMotor.setNeutralMode(NeutralMode.Coast);
     }
   }
 
