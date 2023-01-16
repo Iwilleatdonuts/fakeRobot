@@ -39,8 +39,8 @@ public class ExampleCommand extends CommandBase {
     double turn = m_CommandXboxController.getRawAxis(XboxController.Axis.kLeftX.value);
     m_subsystem.setEMotorSpeed(move+ turn);
     m_subsystem.setWMotorSpeed(move- turn);
-    Trigger mode = m_CommandXboxController.x();
-    m_subsystem.setBrakeMode(mode);
+    //Trigger mode = m_CommandXboxController.x();
+    //m_subsystem.setBrakeMode(mode);
   }
 
   // Called once the command ends or is interrupted.

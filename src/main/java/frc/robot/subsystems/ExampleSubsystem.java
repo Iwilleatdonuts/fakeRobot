@@ -24,6 +24,8 @@ private final TalonFX m_nEMoveMotor;
 private final TalonFX m_sWMoveMotor;
 private final TalonFX m_sEMoveMotor;
 
+  private boolean m_isBrakeMode = false;
+
   public ExampleSubsystem() {
     m_nWTurnMotor = new TalonFX(Constants.nWTurnMotorID);
     m_nETurnMotor = new TalonFX(Constants.nETurnMotorID);
@@ -43,18 +45,24 @@ private final TalonFX m_sEMoveMotor;
       m_nEMoveMotor.set(ControlMode.PercentOutput, eMotorSpeed);
       m_sEMoveMotor.set(ControlMode.PercentOutput, eMotorSpeed);
   }
-  public void setBrakeMode(Trigger mode){
-    if(mode.getAsBoolean()){
+  public void setBrakeMode(boolean mode){
+    if(mode){
+      m_isBrakeMode = true;
       m_nWTurnMotor.setNeutralMode(NeutralMode.Brake);
       m_nETurnMotor.setNeutralMode(NeutralMode.Brake);
       m_sWTurnMotor.setNeutralMode(NeutralMode.Brake);
       m_sETurnMotor.setNeutralMode(NeutralMode.Brake);
     } else {
+      m_isBrakeMode = false;
       m_nWTurnMotor.setNeutralMode(NeutralMode.Coast);
       m_nETurnMotor.setNeutralMode(NeutralMode.Coast);
       m_sWTurnMotor.setNeutralMode(NeutralMode.Coast);
       m_sETurnMotor.setNeutralMode(NeutralMode.Coast);
     }
+  }
+
+  public boolean isBrakeMode(){
+    return m_isBrakeMode;
   }
 
   /**
