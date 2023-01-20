@@ -12,6 +12,7 @@ import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.sensors.CANCoder;
 public class ExampleSubsystem extends SubsystemBase {
   
 //** Creates a new ExampleSubsystem. */
@@ -23,6 +24,7 @@ private final TalonFX m_nWMoveMotor;
 private final TalonFX m_nEMoveMotor;
 private final TalonFX m_sWMoveMotor;
 private final TalonFX m_sEMoveMotor;
+CANCoder nECANCoder = new CANCoder(Constants.nECANCoderID);
 
   private boolean m_isBrakeMode = false;
 
@@ -45,8 +47,8 @@ private final TalonFX m_sEMoveMotor;
       m_nEMoveMotor.set(ControlMode.PercentOutput, eMotorSpeed);
       m_sEMoveMotor.set(ControlMode.PercentOutput, eMotorSpeed);
   }
-  public void setBrakeMode(boolean mode){
-    if(mode){
+  public void setBrakeMode(boolean isBrakeMode){
+    if(isBrakeMode){
       m_isBrakeMode = true;
       m_nWTurnMotor.setNeutralMode(NeutralMode.Brake);
       m_nETurnMotor.setNeutralMode(NeutralMode.Brake);
@@ -58,6 +60,16 @@ private final TalonFX m_sEMoveMotor;
       m_nETurnMotor.setNeutralMode(NeutralMode.Coast);
       m_sWTurnMotor.setNeutralMode(NeutralMode.Coast);
       m_sETurnMotor.setNeutralMode(NeutralMode.Coast);
+    }
+  }
+  public double getNEAngle(){
+      return nECANCoder.getAbsolutePosition();
+  }
+  public void setNEAngle(Trigger setAngle){
+    if(setAngle.getAsBoolean()){
+      if(getNEAngle()!=180){
+        m_nEMoveMotor.set(ControlMode.PercentOutput, 0.5);
+      }
     }
   }
 
