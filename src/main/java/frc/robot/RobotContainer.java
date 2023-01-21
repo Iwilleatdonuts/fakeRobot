@@ -5,7 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.MoveRobot;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -42,7 +42,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_exampleSubsystem.setDefaultCommand(new ExampleCommand(m_exampleSubsystem, m_driverController));
+    m_exampleSubsystem.setDefaultCommand(new MoveRobot(m_exampleSubsystem, m_driverController));
 
     m_xButton.toggleOnTrue(new InstantCommand(() ->{
       m_exampleSubsystem.setBrakeMode(!m_exampleSubsystem.isBrakeMode());

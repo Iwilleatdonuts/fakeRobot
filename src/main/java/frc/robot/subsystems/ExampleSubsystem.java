@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -25,6 +26,9 @@ private final TalonFX m_nEMoveMotor;
 private final TalonFX m_sWMoveMotor;
 private final TalonFX m_sEMoveMotor;
 CANCoder nECANCoder = new CANCoder(Constants.nECANCoderID);
+CANCoder nWCANCoder = new CANCoder(Constants.nWCANCoderID);
+CANCoder sECANCoder = new CANCoder(Constants.sECANCoderID);
+CANCoder sWCANCoder = new CANCoder(Constants.sWCANCoderID);
 
   private boolean m_isBrakeMode = false;
 
@@ -61,18 +65,33 @@ CANCoder nECANCoder = new CANCoder(Constants.nECANCoderID);
       m_sWTurnMotor.setNeutralMode(NeutralMode.Coast);
       m_sETurnMotor.setNeutralMode(NeutralMode.Coast);
     }
+    
   }
-  public double getNEAngle(){
+  public double getnETurnMotor(){
       return nECANCoder.getAbsolutePosition();
-  }
-  public void setNEAngle(Trigger setAngle){
-    if(setAngle.getAsBoolean()){
-      if(getNEAngle()!=180){
-        m_nEMoveMotor.set(ControlMode.PercentOutput, 0.5);
-      }
     }
+  public double getnWTurnMotor(){
+      return nWCANCoder.getAbsolutePosition();
+    }
+  public double getsETurnMotor(){
+      return sECANCoder.getAbsolutePosition();
+    }
+  public double getsWTurnMotor(){
+      return sWCANCoder.getAbsolutePosition();
+    }
+  public void setnETurnMotor(double nETurnMotorSpeed){
+    m_nETurnMotor.set(ControlMode.PercentOutput, nETurnMotorSpeed);
   }
-
+  public void setnWTurnMotor(double nWTurnMotorSpeed){
+    m_nWTurnMotor.set(ControlMode.PercentOutput, nWTurnMotorSpeed);
+  }
+  public void setsETurnMotor(double sETurnMotorSpeed){
+    m_sETurnMotor.set(ControlMode.PercentOutput, sETurnMotorSpeed);
+  }
+  public void setsWTurnMotor(double sWTurnMotorSpeed){
+    m_sWTurnMotor.set(ControlMode.PercentOutput, sWTurnMotorSpeed);
+  }
+ 
   public boolean isBrakeMode(){
     return m_isBrakeMode;
   }
@@ -103,7 +122,12 @@ CANCoder nECANCoder = new CANCoder(Constants.nECANCoderID);
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+     //This method will be called once per scheduler run
+    SmartDashboard.putNumber("nETurnMotor", getnETurnMotor());
+    SmartDashboard.putNumber("nWTurnMotor", getnWTurnMotor());
+    SmartDashboard.putNumber("sETurnMotor", getsETurnMotor());
+    SmartDashboard.putNumber("sWTurnMotor", getsWTurnMotor());
+
   }
 
   @Override
