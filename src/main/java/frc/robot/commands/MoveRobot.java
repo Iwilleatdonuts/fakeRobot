@@ -44,7 +44,7 @@ public class MoveRobot extends CommandBase {
    if (Math.abs(move)> Constants.deadzone&&Math.abs(turn)> Constants.deadzone||Math.abs(move)> Constants.deadzone&&Math.abs(turn)< Constants.deadzone||Math.abs(move)< Constants.deadzone&&Math.abs(turn)> Constants.deadzone){
     m_subsystem.setEMotorSpeed(move+ turn);
     m_subsystem.setWMotorSpeed(move- turn);
-   } else {
+   } else { 
     m_subsystem.setEMotorSpeed(0);
     m_subsystem.setWMotorSpeed(0);
    }
@@ -60,14 +60,14 @@ public class MoveRobot extends CommandBase {
       m_subsystem.setnWTurnMotor(0);
     }
     if(setAngle.getAsBoolean()&&(m_subsystem.getsETurnMotor()>190||m_subsystem.getsETurnMotor()<170)){
-      m_subsystem.setsWTurnMotor(0.1);
-    } else {
-      m_subsystem.setsWTurnMotor(0);
-    }
-    if(setAngle.getAsBoolean()&&(m_subsystem.getsWTurnMotor()>190||m_subsystem.getsWTurnMotor()<170)){
       m_subsystem.setsETurnMotor(0.1);
     } else {
       m_subsystem.setsETurnMotor(0);
+    }
+    if(setAngle.getAsBoolean()&&(m_subsystem.getsWTurnMotor()>190||m_subsystem.getsWTurnMotor()<170)){
+      m_subsystem.setsWTurnMotor(0.1);
+    } else {
+      m_subsystem.setsWTurnMotor(0);
     }
 
     //Trigger mode = m_CommandXboxController.x();

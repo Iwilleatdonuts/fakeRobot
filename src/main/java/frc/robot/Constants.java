@@ -23,8 +23,8 @@ public final class Constants {
     public static final int sEMoveMotorID = 8;
     public static final int nECANCoderID = 9;
     public static final int nWCANCoderID = 10;
-    public static final int sWCANCoderID = 11;
-    public static final int sECANCoderID = 12;
+    public static final int sECANCoderID = 11;
+    public static final int sWCANCoderID = 12;
     public static final double deadzone = 0.1;
     
   public static class OperatorConstants {
