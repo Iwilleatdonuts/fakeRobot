@@ -13,18 +13,27 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int nETurnMotorID = 1;
-    public static final int nEMoveMotorID = 2;
-    public static final int nWTurnMotorID = 3;
-    public static final int nWMoveMotorID = 4;
-    public static final int sWTurnMotorID = 5;
-    public static final int sWMoveMotorID = 6;
-    public static final int sETurnMotorID = 7;
-    public static final int sEMoveMotorID = 8;
-    public static final int nECANCoderID = 9;
-    public static final int nWCANCoderID = 10;
-    public static final int sECANCoderID = 11;
-    public static final int sWCANCoderID = 12;
+    public static final class FrontRight{
+        public static final int TurnMotorID = 1;
+        public static final int DriveMotorID = 2;
+        public static final int CANCoderID = 9;
+    }
+    public static final class FrontLeft{
+        public static final int TurnMotorID = 3;
+        public static final int DriveMotorID = 4;
+        public static final int CANCoderID = 10;
+    }
+    public static final class BackLeft{
+        public static final int TurnMotorID = 5;
+        public static final int DriveMotorID = 6;
+        public static final int CANCoderID = 12;
+    }
+    public static final class BackRight{
+        public static final int TurnMotorID = 7;
+        public static final int DriveMotorID = 8;
+        public static final int CANCoderID = 11;
+    }
+
     public static final double deadzone = 0.1;
     
   public static class OperatorConstants {

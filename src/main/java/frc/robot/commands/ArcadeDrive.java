@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.DriveTrain;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
@@ -15,16 +15,16 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 
 /** An example command that uses an example subsystem. */
-public class MoveRobot extends CommandBase {
+public class ArcadeDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
+  private final DriveTrain m_subsystem;
   private final CommandXboxController m_CommandXboxController;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public MoveRobot(ExampleSubsystem subsystem, CommandXboxController commandXboxController) {
+  public ArcadeDrive(DriveTrain subsystem, CommandXboxController commandXboxController) {
     m_subsystem = subsystem;
     m_CommandXboxController = commandXboxController;
     
@@ -39,39 +39,28 @@ public class MoveRobot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double move = m_CommandXboxController.getRawAxis(XboxController.Axis.kLeftY.value);
+    double drive = m_CommandXboxController.getRawAxis(XboxController.Axis.kLeftY.value);
     double turn = m_CommandXboxController.getRawAxis(XboxController.Axis.kLeftX.value);
-   if (Math.abs(move)> Constants.deadzone&&Math.abs(turn)> Constants.deadzone||Math.abs(move)> Constants.deadzone&&Math.abs(turn)< Constants.deadzone||Math.abs(move)< Constants.deadzone&&Math.abs(turn)> Constants.deadzone){
-    m_subsystem.setEMotorSpeed(move+ turn);
-    m_subsystem.setWMotorSpeed(move- turn);
+   if (Math.abs(drive)> Constants.deadzone&&Math.abs(turn)> Constants.deadzone||Math.abs(drive)> Constants.deadzone&&Math.abs(turn)< Constants.deadzone||Math.abs(drive)< Constants.deadzone&&Math.abs(turn)> Constants.deadzone){
+    m_subsystem.setLeftMotorSpeed(drive+ turn);
+    m_subsystem.setRightMotorSpeed(drive- turn);
    } else { 
-    m_subsystem.setEMotorSpeed(0);
-    m_subsystem.setWMotorSpeed(0);
+    m_subsystem.setLeftMotorSpeed(0);
+    m_subsystem.setRightMotorSpeed(0);
    }
     Trigger setAngle = m_CommandXboxController.a();
-    if(setAngle.getAsBoolean()&&(m_subsystem.getnETurnMotor()>190||m_subsystem.getnETurnMotor()<170)){
-      m_subsystem.setnETurnMotor(0.1);
-    } else {
-      m_subsystem.setnETurnMotor(0);
+    if(setAngle.getAsBoolean()){
+      m_subsystem.setFrontLeftTurnMotor((180-m_subsystem.getFrontLeftTurnMotor())*0.01);
     }
-    if(setAngle.getAsBoolean()&&(m_subsystem.getnWTurnMotor()>190||m_subsystem.getnWTurnMotor()<170)){
-      m_subsystem.setnWTurnMotor(0.1);
-    } else {
-      m_subsystem.setnWTurnMotor(0);
+    if(setAngle.getAsBoolean()){
+      m_subsystem.setFrontRightTurnMotor((180-m_subsystem.getFrontRightTurnMotor())*0.01);
     }
-    if(setAngle.getAsBoolean()&&(m_subsystem.getsETurnMotor()>190||m_subsystem.getsETurnMotor()<170)){
-      m_subsystem.setsETurnMotor(0.1);
-    } else {
-      m_subsystem.setsETurnMotor(0);
+    if(setAngle.getAsBoolean()){
+      m_subsystem.setBackRightTurnMotor((180-m_subsystem.getBackRightTurnMotor())*0.01);
     }
-    if(setAngle.getAsBoolean()&&(m_subsystem.getsWTurnMotor()>190||m_subsystem.getsWTurnMotor()<170)){
-      m_subsystem.setsWTurnMotor(0.1);
-    } else {
-      m_subsystem.setsWTurnMotor(0);
+    if(setAngle.getAsBoolean()){
+      m_subsystem.setBackLeftTurnMotor((180-m_subsystem.getBackLeftTurnMotor())*0.01);
     }
-
-    //Trigger mode = m_CommandXboxController.x();
-    //m_subsystem.setBrakeMode(mode);
   }
 
 
