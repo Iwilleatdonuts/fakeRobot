@@ -17,19 +17,19 @@ import frc.robot.Constants;
 /** An example command that uses an example subsystem. */
 public class ArcadeDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final DriveTrain m_subsystem;
-  private final CommandXboxController m_CommandXboxController;
+  private final DriveTrain m_arcadeDrive;
+  private final CommandXboxController m_driverController;
   /**
    * Creates a new ExampleCommand.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param arcadeDrive The subsystem used by this command.
    */
-  public ArcadeDrive(DriveTrain subsystem, CommandXboxController commandXboxController) {
-    m_subsystem = subsystem;
-    m_CommandXboxController = commandXboxController;
+  public ArcadeDrive(DriveTrain arcadeDrive, CommandXboxController commandXboxController) {
+    m_arcadeDrive = arcadeDrive;
+    m_driverController = commandXboxController;
     
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(arcadeDrive);
   }
 
   // Called when the command is initially scheduled.
@@ -39,30 +39,23 @@ public class ArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double drive = m_CommandXboxController.getRawAxis(XboxController.Axis.kLeftY.value);
-    double turn = m_CommandXboxController.getRawAxis(XboxController.Axis.kLeftX.value);
+    double drive = m_driverController.getRawAxis(XboxController.Axis.kLeftY.value);
+    double turn = m_driverController.getRawAxis(XboxController.Axis.kLeftX.value);
    if (Math.abs(drive)> Constants.deadzone&&Math.abs(turn)> Constants.deadzone||Math.abs(drive)> Constants.deadzone&&Math.abs(turn)< Constants.deadzone||Math.abs(drive)< Constants.deadzone&&Math.abs(turn)> Constants.deadzone){
-    m_subsystem.setLeftMotorSpeed(drive+ turn);
-    m_subsystem.setRightMotorSpeed(drive- turn);
+    m_arcadeDrive.setLeftMotorSpeed(drive+ turn);
+    m_arcadeDrive.setRightMotorSpeed(drive- turn);
    } else { 
-    m_subsystem.setLeftMotorSpeed(0);
-    m_subsystem.setRightMotorSpeed(0);
+    m_arcadeDrive.setLeftMotorSpeed(0);
+    m_arcadeDrive.setRightMotorSpeed(0);
    }
-    Trigger setAngle = m_CommandXboxController.a();
+    Trigger setAngle = m_driverController.a();
     if(setAngle.getAsBoolean()){
-      m_subsystem.setFrontLeftTurnMotor((180-m_subsystem.getFrontLeftTurnMotor())*0.01);
-    }
-    if(setAngle.getAsBoolean()){
-      m_subsystem.setFrontRightTurnMotor((180-m_subsystem.getFrontRightTurnMotor())*0.01);
-    }
-    if(setAngle.getAsBoolean()){
-      m_subsystem.setBackRightTurnMotor((180-m_subsystem.getBackRightTurnMotor())*0.01);
-    }
-    if(setAngle.getAsBoolean()){
-      m_subsystem.setBackLeftTurnMotor((180-m_subsystem.getBackLeftTurnMotor())*0.01);
+      m_arcadeDrive.setFrontLeftTurnMotor((180-m_arcadeDrive.getFrontLeftTurnMotor())*0.01);
+      m_arcadeDrive.setFrontRightTurnMotor((180-m_arcadeDrive.getFrontRightTurnMotor())*0.01);
+      m_arcadeDrive.setBackRightTurnMotor((180-m_arcadeDrive.getBackRightTurnMotor())*0.01);
+      m_arcadeDrive.setBackLeftTurnMotor((180-m_arcadeDrive.getBackLeftTurnMotor())*0.01);
     }
   }
-
 
   // Called once the command ends or is interrupted.
   @Override

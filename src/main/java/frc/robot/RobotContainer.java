@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_exampleSubsystem = new DriveTrain();
+  private final DriveTrain m_brakeMode = new DriveTrain();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -42,11 +42,11 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_exampleSubsystem.setDefaultCommand(new ArcadeDrive(m_exampleSubsystem, m_driverController));
+    m_brakeMode.setDefaultCommand(new ArcadeDrive(m_brakeMode, m_driverController));
 
     m_xButton.toggleOnTrue(new InstantCommand(() ->{
-      m_exampleSubsystem.setBrakeMode(!m_exampleSubsystem.isBrakeMode());
-      }, m_exampleSubsystem));
+      m_brakeMode.setBrakeMode(!m_brakeMode.isBrakeMode());
+      }, m_brakeMode));
       // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
@@ -60,6 +60,5 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return new RunCommand(null, null);
-    // return Autos.exampleAuto(m_exampleSubsystem);
-  }
+    }
 }
