@@ -13,14 +13,35 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int nETurnMotorID = 1;
-    public static final int nEMoveMotorID = 2;
-    public static final int nWTurnMotorID = 3;
-    public static final int nWMoveMotorID = 4;
-    public static final int sWTurnMotorID = 5;
-    public static final int sWMoveMotorID = 6;
-    public static final int sETurnMotorID = 7;
-    public static final int sEMoveMotorID = 8;
+
+  public static class FrontRightModule {
+      public static final int TurnMotorID = 1;
+      public static final int MoveMotorID = 2;
+      public static final int CANCoderID = 9;
+      public static final double DefaultAngle = 180;
+  }
+  public static class FrontLeftModule {
+      public static final int TurnMotorID = 3;
+      public static final int MoveMotorID = 4;
+      public static final int CANCoderID = 10;
+      public static final double DefaultAngle = 180;
+  }
+  public static class BackLeftModule {
+      public static final int TurnMotorID = 5;
+      public static final int MoveMotorID = 6;
+      public static final int CANCoderID = 12;
+      public static final double DefaultAngle = 180;
+  }
+  public static class BackRightModule {
+      public static final int TurnMotorID = 7;
+      public static final int MoveMotorID = 8;
+      public static final int CANCoderID = 11;
+      public static final double DefaultAngle = 180;
+  } 
+    
+  public static final double angleMotorKP = 0.1;
+  public static final double angleMotorKI = 0.01;
+  public static final double angleMotorKD = 0.001;
     
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

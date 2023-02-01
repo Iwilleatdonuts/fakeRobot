@@ -5,8 +5,8 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.ArcadeDrive;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -21,13 +21,22 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final DriveTrain m_brake = new DriveTrain();
+  private final DriveTrain m_defaultAngle = new DriveTrain();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
-  private final Trigger m_xButton = m_driverController.x();
+  private final Trigger m_xButton = m_driverController.x(); 
+  private final Trigger defaultAngle = m_driverController.y();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+      m_defaultAngle.setDefaultCommand(new RunCommand(() -> {
+        if (defaultAngle.getAsBoolean()){
+          m_defaultAngle.setTurnMotors();
+        }
+      }));
     // Configure the trigger bindings
     configureBindings();
   }
@@ -42,11 +51,10 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_exampleSubsystem.setDefaultCommand(new ExampleCommand(m_exampleSubsystem, m_driverController));
-
+    m_brake.setDefaultCommand(new ArcadeDrive(m_brake, m_driverController));
     m_xButton.toggleOnTrue(new InstantCommand(() ->{
-      m_exampleSubsystem.setBrakeMode(!m_exampleSubsystem.isBrakeMode());
-      }, m_exampleSubsystem));
+      m_brake.setBrakeMode(!m_brake.isBrakeMode());
+      }, m_brake));
       // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
